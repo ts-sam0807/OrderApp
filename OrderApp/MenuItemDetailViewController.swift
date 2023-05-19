@@ -54,6 +54,12 @@ class MenuItemDetailViewController: UIViewController {
     nameLabel.text = menuItem.name
     priceLabel.text = MenuItem.priceFormatter.string(from: NSNumber(value: menuItem.price))
     detailTextLabel.text = menuItem.detailText
+    MenuContorller.shared.fetchImage(url: menuItem.imageURL) { (image) in
+      guard let image = image else { return }
+      DispatchQueue.main.async {
+        self.imageView.image = image
+      }
+    }
   }
   
   

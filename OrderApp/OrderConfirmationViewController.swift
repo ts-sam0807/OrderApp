@@ -12,11 +12,6 @@ class OrderConfirmationViewController: UIViewController {
   let minutesToPrepare: Int
   @IBOutlet var confirmationLabel: UILabel!
   
-  @IBAction func unwindToOrderList(segue: UIStoryboardSegue) {
-    if segue.identifier == "dismissConfirmation" {
-      MenuContorller.shared.order.menuItems.removeAll()
-    }
-  }
   
   required init?(coder: NSCoder, minutesToPrepare: Int) {
     self.minutesToPrepare = minutesToPrepare

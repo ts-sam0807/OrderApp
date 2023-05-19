@@ -19,7 +19,13 @@ class OrderTableViewController: UITableViewController {
     NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: MenuContorller.orderUpdatedNotification, object: nil)
   }
   
-  @IBSegueAction func confirmOrder(_ coder: NSCoder, sender: Any?) -> OrderConfirmationViewController? {
+  @IBAction func unwindToOrderList(segue: UIStoryboardSegue) {
+    if segue.identifier == "dismissConfirmation" {
+      MenuContorller.shared.order.menuItems.removeAll()
+    }
+  }
+  
+  @IBSegueAction func confirmOrder(_ coder: NSCoder) -> OrderConfirmationViewController? {
     return OrderConfirmationViewController(coder: coder, minutesToPrepare: mintesToPrepareOrder)
   }
   
@@ -104,8 +110,18 @@ class OrderTableViewController: UITableViewController {
   func configure(_ cell: UITableViewCell, forItemAt indexPath: IndexPath) {
     let menuItem = MenuContorller.shared.order.menuItems[indexPath.row]
     cell.textLabel?.text = menuItem.name
-    cell.detailTextLabel?.text =
-    MenuItem.priceFormatter.string(from: NSNumber(value: menuItem.price))
+    cell.detailTextLabel?.text = MenuItem.priceFormatter.string(from: NSNumber(value: menuItem.price))
+    MenuContorller.shared.fetchImage(url: menuItem.imageURL) { (image) in
+      guard let image = image else { return }
+      DispatchQueue.main.async {
+        if let currentIndexPath = self.tableView.indexPath(for: cell),
+            currentIndexPath != indexPath {
+          return
+        }
+        cell.imageView?.image = image
+        cell.setNeedsLayout()
+      }
+    }
   }
   
   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

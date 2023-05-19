@@ -207,7 +207,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Zne-hG-gRx" kind="presentation" identifier="confirmOrder" destinationCreationSelector="confirmOrder:sender:" id="QYK-SI-eZE"/>
+                                    <segue destination="Zne-hG-gRx" kind="presentation" identifier="confirmOrder" destinationCreationSelector="confirmOrder:" id="Z4l-bV-sAh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -247,7 +247,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Dismiss"/>
                                 <connections>
-                                    <segue destination="9XZ-um-O7b" kind="unwind" unwindAction="unwindToOrderListWithSegue:" id="1F6-3O-NJN"/>
+                                    <segue destination="9XZ-um-O7b" kind="unwind" identifier="dismissConfirmation" unwindAction="unwindToOrderListWithSegue:" id="TDk-xm-xYt"/>
                                 </connections>
                             </button>
                         </subviews>
